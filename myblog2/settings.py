@@ -116,6 +116,16 @@ CHANNEL_LAYERS = {
     },
 }
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis-server-1", 6379)],
+        },
+        "ROUTING": "myblog2.routing.channel_routing",
+    },
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 

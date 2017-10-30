@@ -28,7 +28,7 @@ DEBUG = True
 
 LOGIN_REDIRECT_URL = 'home'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['18.194.226.178',]
 
 
 # Application definition
@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'myblog2',
         'USER': 'root',
-        'PASSWORD': 'p1571996',
+        'PASSWORD': 'dokkanz96',
         'HOST': '',
         'PORT': '',
     }

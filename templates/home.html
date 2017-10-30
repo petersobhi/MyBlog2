@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="post-box">
+<div class="row">
+  <div class="col-md-10 center-block" style="float: none">
+  <h2 class="text-center">New post</h2>
+{% if user.is_authenticated %}
+
+<form onsubmit="return sendPost()">
+  <div class="form-group">
+    <label for="subject">Subject</label>
+    {{form.subject}}
+  </div>
+  <div class="form-group">
+    <label for="body">Body</label>
+    {{form.body}}
+  </div>
+  <button type="submit" class="btn btn-default" >Post</button>
+</form>
+{% else %}
+  <h3 class="text-center">Please, <a href="{% url "login" %}">log in</a> first to submit a new post</h3>
+{% endif %}
+</div>
+</div>
+</div>
+
+{% if posts %}
+<div class="posts">
+{% for post in posts %}
+		<div class="post" id="post-{{post.id}}">
+			<h2 id="subject">{{post.subject}}</h2>
+			<p id="body">{{post.body}}</p>
+			{% if user == post.user %}
+				<div class="action-buttons">
+				 <button type="button" id="edit_button" class="btn btn-default btn-md"
+				  data-toggle="modal" data-target="#editModal" onclick="callEdit({{post.id}})">
+				  	<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+				</button>
+				<button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#deleteModal"  onclick="callDelete({{post.id}})">
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+				</button>
+				</div>
+			{% endif %}
+			<h4 class="text-right">by {{post.user.username}}
+			{% if post.user.username == user.username %}
+			(you)
+			{% endif %}
+			</h4>
+			<hr>
+		</div>
+		
+{% endfor %}
+</div>
+{% else %}
+<div class="row">
+			<div class="col-md-12">
+	<h4 class="text-center">no posts yet</h4>
+</div>
+</div>
+{% endif %}
+
+
+
+<div id="editModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+  <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Post</h4>
+      </div>
+      <form id="edit-form">
+      <div class="modal-body">
+        
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            {{form.subject}}
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Body</label>
+            {{form.body}}
+          </div>
+        
+		</div>
+      <div class="modal-footer">
+      	 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      	 <button type="submit" class="btn btn-primary" >Edit</button>
+      </div>
+      </form>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" id="deleteModal" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Delete this post</h4>
+      </div>
+      <div class="modal-body">
+        Are you sure want to delete this post?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button id="delete-btn" class="btn btn-danger" data-dismiss="modal">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	var username = '{{user.username}}';
+</script>
+
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+
+{% endblock %}

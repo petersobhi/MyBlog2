@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <h2 class="text-center">Login</h2>
+  </div>
+</div>
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+ <p style="color: green">You are already logged in!</p>
+ <a href="{% url 'home' %}">Back to homepage</a>
+
+{% else %}
+
+<div class="row">
+  <div class="col-md-5 center-block" style="float: none">
+
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+
+       <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" value="{{username}}">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password">
+      </div>
+
+      <div class="form-group">
+      	  <input type="submit" value="Login" class="btn btn-default" style="margin-right: 10px" />
+	      <input type="hidden" name="next" value="{{ next }}" />
+		  <span>don't have an account yet? <a href="{% url 'signup' %}">Sign up</a> now</span>
+      </div>
+
+</form>
+
+</div>
+</div>
+
+
+
+
+{% endif %}
+
+{% endblock %}
+
+

@@ -1,5 +1,5 @@
 # MyBlog2
-a new version from [MyBlog](https://github.com/petersobhi/MyBlog) without commenting and liking systems but using Django with web sockets.
+A new version of [MyBlog](https://github.com/petersobhi/MyBlog) without commenting and liking systems but using Django with web sockets.
 
 ##### it  can run online through [AWS](http://18.194.226.178/) or locally.
 
